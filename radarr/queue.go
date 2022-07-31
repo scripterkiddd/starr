@@ -3,6 +3,7 @@ package radarr
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"time"
 
 	"golift.io/starr"
@@ -103,4 +104,21 @@ func (r *Radarr) GetQueuePageContext(ctx context.Context, params *starr.Req) (*Q
 	}
 
 	return &queue, nil
+}
+
+type DeleteQueueRecordParam struct {
+	Blocklist        bool
+	RemoveFromClient bool
+}
+
+// https://radarr.video/docs/api/#/Queue/delete_api_v3_queue__id_
+func (r *Radarr) DeleteQueueRecord(ctx context.Context, record *QueueRecord, p *DeleteQueueRecordParam) error {
+	params := make(url.Values)
+	params.Set("blocklist", fmt.Sprintf("%t", p.Blocklist))
+	params.Set("removeFromClient", fmt.Sprintf("%t", p.RemoveFromClient))
+	_, err := r.Delete(ctx, fmt.Sprintf("v3/queue/%d", record.ID), params)
+	if err != nil {
+		return fmt.Errorf("api.Delete(queue): %w", err)
+	}
+	return nil
 }
