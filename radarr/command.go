@@ -8,10 +8,16 @@ import (
 	"time"
 )
 
+type Command string
+
+const (
+	MoviesSearch Command = "MoviesSearch"
+)
+
 // CommandRequest goes into the /api/v3/command endpoint.
 // This was created from the search command and may not support other commands yet.
 type CommandRequest struct {
-	Name     string  `json:"name"`
+	Name     Command `json:"name"`
 	MovieIDs []int64 `json:"movieIds,omitempty"`
 }
 

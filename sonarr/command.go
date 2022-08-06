@@ -11,10 +11,27 @@ import (
 	"golift.io/starr"
 )
 
+type Command string
+
+// https://github.com/Sonarr/Sonarr/wiki/Command
+const (
+	RefreshSeries          Command = "RefreshSeries"
+	RescanSeries           Command = "RescanSeries"
+	EpisodeSearch          Command = "EpisodeSearch"
+	SeasonSearch           Command = "SeasonSearch"
+	SeriesSearch           Command = "SeriesSearch"
+	DownloadedEpisodesScan Command = "DownloadedEpisodesScan"
+	RssSync                Command = "RssSync"
+	RenameFiles            Command = "RenameFiles"
+	RenameSeries           Command = "RenameSeries"
+	Backup                 Command = "Backup"
+	MissingEpisodeSearch   Command = "missingEpisodeSearch"
+)
+
 // CommandRequest goes into the /api/v3/command endpoint.
 // This was created from the search command and may not support other commands yet.
 type CommandRequest struct {
-	Name       string  `json:"name"`
+	Name       Command `json:"name"`
 	Files      []int64 `json:"files,omitempty"` // RenameFiles only
 	SeriesIDs  []int64 `json:"seriesIds,omitempty"`
 	SeriesID   int64   `json:"seriesId,omitempty"`
