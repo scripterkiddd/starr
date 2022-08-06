@@ -14,10 +14,11 @@ import (
 // CommandRequest goes into the /api/v3/command endpoint.
 // This was created from the search command and may not support other commands yet.
 type CommandRequest struct {
-	Name      string  `json:"name"`
-	Files     []int64 `json:"files,omitempty"` // RenameFiles only
-	SeriesIDs []int64 `json:"seriesIds,omitempty"`
-	SeriesID  int64   `json:"seriesId,omitempty"`
+	Name       string  `json:"name"`
+	Files      []int64 `json:"files,omitempty"` // RenameFiles only
+	SeriesIDs  []int64 `json:"seriesIds,omitempty"`
+	SeriesID   int64   `json:"seriesId,omitempty"`
+	EpisodeIDs []int64 `json:"episodeIds,omitempty"`
 }
 
 // CommandResponse comes from the /api/v3/command endpoint.
